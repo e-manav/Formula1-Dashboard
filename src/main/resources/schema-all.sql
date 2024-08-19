@@ -1,12 +1,14 @@
-CREATE TABLE circuit
+DROP TABLE circuits IF EXISTS;
+
+CREATE TABLE circuits
 (
-    circuitId  VARCHAR(20) NOT NULL PRIMARY KEY,
+    circuitId  INT NOT NULL PRIMARY KEY,
     circuitRef VARCHAR(20),
     name       VARCHAR(50),
     location   VARCHAR(50),
     country    VARCHAR(20),
-    lat        VARCHAR(10),
-    lng        VARCHAR(10),
-    alt        VARCHAR(9),
+    lat        DOUBLE,
+    lng        DOUBLE,
+    alt        INT,
     url        VARCHAR(100)
 );

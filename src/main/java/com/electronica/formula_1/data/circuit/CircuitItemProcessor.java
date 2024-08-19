@@ -1,9 +1,12 @@
-package com.electronica.formula_1.data;
+package com.electronica.formula_1.data.circuit;
 
 import com.electronica.formula_1.model.Circuit;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.logging.Logger;
+
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 public class CircuitItemProcessor implements ItemProcessor<CircuitInput, Circuit> {
 
@@ -23,14 +26,14 @@ public class CircuitItemProcessor implements ItemProcessor<CircuitInput, Circuit
         final String alt = item.alt();
         final String url = item.url();
 
-        circuit.setCircuitId(id);
+        circuit.setCircuitId(parseInt(id));
         circuit.setCircuitRef(ref);
         circuit.setName(name);
         circuit.setLocation(location);
         circuit.setCountry(country);
-        circuit.setLat(lat);
-        circuit.setLng(lng);
-        circuit.setAlt(alt);
+        circuit.setLat(parseDouble(lat));
+        circuit.setLng(parseDouble(lng));
+        circuit.setAlt(parseInt(alt));
         circuit.setUrl(url);
         logger.info("Converting (" + item + ") Stringo (" + circuit + ")");
         return circuit;

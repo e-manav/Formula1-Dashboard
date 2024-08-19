@@ -7,22 +7,22 @@ import jakarta.persistence.Id;
 @Entity
 public class Circuit{
   @Id
-  private String circuitId;
+  private int circuitId;
   private String circuitRef;
   private String name;
   private String location;
   private String country;
-  private String lat;
-  private String lng;
-  private String alt;
+  private double lat;
+  private double lng;
+  private int alt;
   private String url;
 
 
-  public String getCircuitId() {
+  public int getCircuitId() {
     return circuitId;
   }
 
-  public void setCircuitId(String circuitId) {
+  public void setCircuitId(int circuitId) {
     this.circuitId = circuitId;
   }
 
@@ -58,27 +58,27 @@ public class Circuit{
     this.country = country;
   }
 
-  public String getLat() {
+  public double getLat() {
     return lat;
   }
 
-  public void setLat(String lat) {
+  public void setLat(double lat) {
     this.lat = lat;
   }
 
-  public String getLng() {
+  public double getLng() {
     return lng;
   }
 
-  public void setLng(String lng) {
+  public void setLng(double lng) {
     this.lng = lng;
   }
 
-  public String getAlt() {
+  public int getAlt() {
     return alt;
   }
 
-  public void setAlt(String alt) {
+  public void setAlt(int alt) {
     this.alt = alt;
   }
 

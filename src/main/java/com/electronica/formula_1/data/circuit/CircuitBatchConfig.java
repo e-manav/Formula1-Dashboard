@@ -1,4 +1,4 @@
-package com.electronica.formula_1.data;
+package com.electronica.formula_1.data.circuit;
 
 import com.electronica.formula_1.model.Circuit;
 import org.springframework.batch.core.Job;
@@ -17,7 +17,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-public class BatchConfig {
+public class CircuitBatchConfig {
     private final String[] FIELD_NAMES = new String[]{
             "circuitId", "circuitRef", "name", "location", "country", "lat", "lng", "alt", "url"
     };
@@ -26,7 +26,7 @@ public class BatchConfig {
     public FlatFileItemReader<CircuitInput> circuitInputFlatFileItemReader() {
         return new FlatFileItemReaderBuilder<CircuitInput>()
                 .name("circuitItemReader")
-                .resource(new ClassPathResource("circuits.csv"))
+                .resource(new ClassPathResource("csv/circuits.csv"))
                 .delimited()
                 .names(FIELD_NAMES)
                 .targetType(CircuitInput.class)
@@ -41,7 +41,7 @@ public class BatchConfig {
     @Bean
     public JdbcBatchItemWriter<Circuit> circuitJdbcBatchItemWriter(DataSource dataSource) {
         return new JdbcBatchItemWriterBuilder<Circuit>()
-                .sql("INSERT INTO circuit (circuitId, circuitRef, name, location, country, lat, lng, alt, url) " +
+                .sql("INSERT INTO circuits (circuitId, circuitRef, name, location, country, lat, lng, alt, url) " +
                         "VALUES (:circuitId, :circuitRef, :name, :location,:country, :lat, :lng, :alt, :url)")
                 .dataSource(dataSource)
                 .beanMapped()
@@ -49,7 +49,7 @@ public class BatchConfig {
     }
 
 	@Bean
-	public Job importUserJob(JobRepository jobRepository,Step step1, JobCompletionNotificationListener listener) {
+	public Job importUserJob(JobRepository jobRepository,Step step1, CircuitJobCompletionNotificationListener listener) {
 		return new JobBuilder("importUserJob", jobRepository)
 			.listener(listener)
 			.start(step1)

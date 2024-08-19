@@ -1,4 +1,4 @@
-package com.electronica.formula_1.data;
+package com.electronica.formula_1.data.circuit;
 
 import com.electronica.formula_1.model.Circuit;
 import org.springframework.batch.core.BatchStatus;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 @Component
-public class JobCompletionNotificationListener implements JobExecutionListener {
-    private static final Logger logger = Logger.getLogger(JobCompletionNotificationListener.class.getName());
+public class CircuitJobCompletionNotificationListener implements JobExecutionListener {
+    private static final Logger logger = Logger.getLogger(CircuitJobCompletionNotificationListener.class.getName());
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JobCompletionNotificationListener(JdbcTemplate jdbcTemplate, JdbcTemplate jdbcTemplate1) {
+    public CircuitJobCompletionNotificationListener(JdbcTemplate jdbcTemplate, JdbcTemplate jdbcTemplate1) {
         this.jdbcTemplate = jdbcTemplate1;
     }
 
@@ -26,7 +26,7 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
             logger.info("!!!Job completed! Time to verify the results");
 
             jdbcTemplate
-                    .query("SELECT circuitRef , name, url FROM circuit", new DataClassRowMapper<>(Circuit.class))
+                    .query("SELECT circuitRef , name, url FROM circuits", new DataClassRowMapper<>(Circuit.class))
                     .forEach(circuit -> logger.info("Found <{{}}> in the database."));
         }
     }
